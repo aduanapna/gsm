@@ -1,0 +1,46 @@
+@font-face {
+  font-family: "Milliard Black";
+  src: url("./fonts/Rene-Bieder-Milliard-Black.woff") format("truetype");
+}
+@font-face {
+  font-family: "Milliard Book";
+  src: url("./fonts/Rene-Bieder-Milliard-Book.woff") format("truetype");
+}
+@font-face {
+  font-family: "Milliard Bold";
+  src: url("./fonts/Rene-Bieder-Milliard-Bold.woff") format("truetype");
+}
+@font-face {
+  font-family: "Milliard ExtraBold";
+  src: url("./fonts/Rene-Bieder-Milliard-ExtraBold.woff") format("truetype");
+}
+body {
+  font-family: "Milliard Black", sans-serif;
+  background-color: #f2f2f2;
+}
+.menu-section h2 {
+  font-weight: bold;
+}
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed #ccc;
+  padding: 10px 0;
+}
+.menu-item h3 {
+  font-weight: bold;
+}
+.menu-description {
+  flex-grow: 1;
+  border-bottom: 1px dashed #000;
+  padding-bottom: 5px;
+}
+.price {
+  font-weight: bold;
+  color: #000;
+}
+.discount-price {
+  font-weight: bold;
+  color: #e91e63;
+}

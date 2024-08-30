@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "Milliard Black";
+  src: url("./fonts/rene-bieder-milliard-black.woff") format("woff");
+}
+@font-face {
+  font-family: "Milliard Book";
+  src: url("./fonts/rene-bieder-milliard-book.woff") format("woff");
+}
+@font-face {
+  font-family: "Milliard Bold";
+  src: url("./fonts/rene-bieder-milliard-bold.woff") format("woff");
+}
+@font-face {
+  font-family: "Milliard ExtraBold";
+  src: url("./fonts/rene-bieder-milliard-extrabold.woff") format("woff");
+}
+
+.millar-black {
+  font-family: "Milliard Black", sans-serif;
+}
+.millar-book {
+  font-family: "Milliard Book", sans-serif;
+}
+.millar-bold {
+  font-family: "Milliard Bold", sans-serif;
+}
+.millar-exbold {
+  font-family: "Milliard ExtraBold", sans-serif;
+}
