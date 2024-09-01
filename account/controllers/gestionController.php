@@ -243,7 +243,7 @@ class gestionController extends Controller
         $this->site['action']   = URL . 'gestion/change_pass';
         $this->del_appjs();
 
-        View2::render('pages', 'reset', $this->site, 'reset_pass');
+        View2::render('gestion', 'reset', $this->site, 'reset_pass');
     }
     function about()
     {

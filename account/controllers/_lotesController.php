@@ -128,23 +128,24 @@ class _lotesController extends Controller
     }
     function lote_update()
     {
-        $form_lote                                     = check_form('lote_form');
+        $form_lote                                      = check_form('lote_form');
         # Seteamos variables que usaremos mas de una vez
-        $lote                                          = new lotesModel;
+        $lote                                           = new lotesModel;
         $lote->lote_id                                  = get_form($form_lote, 'lote_id', ['notnull']);
-        $lote->fecha_ingreso                           = get_form($form_lote, 'fecha_ingreso', ['date']);
-        $lote->nro_gsm                                 = get_form($form_lote, 'nro_gsm', ['notnull']);
-        $lote->nro_denuncia                            = get_form($form_lote, 'nro_denuncia', []);
-        $lote->nro_sumario                             = get_form($form_lote, 'nro_sumario', []);
-        $lote->nro_alot                                = get_form($form_lote, 'nro_alot', []);
-        $lote->nro_sigea                               = get_form($form_lote, 'nro_sigea', []);
-        $lote->deposito                                = get_form($form_lote, 'deposito', ['notnull']);
-        $lote->judicializado                           = get_form($form_lote, 'judicializado', []);
-        $lote->operacion                               = get_form($form_lote, 'operacion', []);
-        $lote->organismo_secuestro                     = get_form($form_lote, 'organismo_secuestro', []);
-        $lote->lote_observation                       = get_form($form_lote, 'lote_observation', []);
-        $lote->lote_condition                         = get_form($form_lote, 'lote_condition', []);
-        $lote->lote_store                             = self::$user->store_id;
+        $lote->fecha_ingreso                            = get_form($form_lote, 'fecha_ingreso', ['date']);
+        $lote->nro_gsm                                  = get_form($form_lote, 'nro_gsm', ['notnull']);
+        $lote->nro_denuncia                             = get_form($form_lote, 'nro_denuncia', []);
+        $lote->nro_sumario                              = get_form($form_lote, 'nro_sumario', []);
+        $lote->nro_alot                                 = get_form($form_lote, 'nro_alot', []);
+        $lote->nro_sigea                                = get_form($form_lote, 'nro_sigea', []);
+        $lote->deposito                                 = get_form($form_lote, 'deposito', ['notnull']);
+        $lote->judicializado                            = get_form($form_lote, 'judicializado', []);
+        $lote->operacion                                = get_form($form_lote, 'operacion', []);
+        $lote->organismo_secuestro                      = get_form($form_lote, 'organismo_secuestro', []);
+        $lote->lote_observation                         = get_form($form_lote, 'lote_observation', []);
+        $lote->resolucion_nro                           = get_form($form_lote, 'resolucion_nro', []);
+        $lote->lote_condition                           = get_form($form_lote, 'lote_condition', []);
+        $lote->lote_store                               = self::$user->store_id;
         $lote->lote_update();
 
         json_response(200, null, 'Orden modificada correctamente');

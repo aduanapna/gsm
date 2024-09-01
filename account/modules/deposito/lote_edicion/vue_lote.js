@@ -19,8 +19,9 @@ var vm = new Vue({
       lote_deletes: [],
       lote_leaked: {},
       lote_item: { picture: "" },
-      lote_edit: false, // Nuevo: índice del artículo que se está editando
-      item_index: -1,
+      lote_edit: false, 
+      item_edition: false, 
+      item_done: "all",
       btn_save: true,
     };
   },
@@ -28,11 +29,10 @@ var vm = new Vue({
   mounted: function () {},
   watch: {
     search_item: function () {
-      if (this.search_item.length >= 3) {
-        this.filter_items();
-      } else {
-        this.lote_leaked = this.lote_items;
-      }
+      this.filter_items();
+    },
+    item_done: function () {
+      this.filter_items();
     },
     page_list: function () {
       if (this.page_list) {
@@ -143,7 +143,7 @@ var vm = new Vue({
       let array_list = this.lote_items;
       let text = this.search_item.toLowerCase();
 
-      array_list = array_list.filter((item) => item.keywords.match(text));
+      array_list = array_list.filter((item) => item.keywords.match(text) && item.gestionado !== this.item_done);
       this.lote_leaked = array_list;
     },
 
@@ -159,35 +159,36 @@ var vm = new Vue({
       this.lote_item.keywords = "";
       this.page_form = true;
     },
-    add_item: function () {
-      if (this.item_index === -1) {
-        // Si no se está editando, agregar un nuevo artículo
+    save_item: function () {
+      if (!this.item_edition) {
         this.lote_items.push(this.lote_item);
         toastr("Artículo agregado", "bg-secondary");
+        console.log("Artículo agregado");
       } else {
-        // Si se está editando, actualizar el artículo existente
-        this.$set(this.lote_items, this.item_index, this.lote_item);
-        toastr("Artículo actualizado", "bg-secondary");
-        this.item_index = -1; // Resetear el índice de edición
+        //this.$set(this.lote_items, this.item_index, this.lote_item);
+        toastr("Artículo actualizado", "bg-success");
+        this.item_edition = false
+        console.log("Artículo actualizado");
       }
       this.filter_items();
       this.lote_item = { picture: "" };
       this.page_list = true;
     },
-    item_edit: function (item, index) {
+    item_edit: function (item) {
+      this.item_edition = true;
       this.lote_item = item;
-      this.item_index = index; // Establecer el índice del artículo a editar
-      console.log(this.item_index);
-
       this.page_form = true;
     },
     item_recycle: function (item) {
+      this.item_edition = false;
       let recycle = Object.assign({}, item);
       this.lote_item = recycle;
       this.lote_item.lote_item_id = 0;
-      this.item_index = -1; // Establecer el índice del artículo a editar
-      this.page_form = true;
-      console.log(recycle);
+      this.page_form = true; 
+    },
+    item_dispose: function (item, index) {
+      this.item_edition = true;
+      this.lote_item = item;
     },
     item_delete: function (item, index) {
       Swal.fire({
@@ -209,11 +210,6 @@ var vm = new Vue({
           this.filter_items();
         }
       });
-    },
-    item_dispose: function (item, index) {
-      this.lote_item = item;
-      this.item_index = index; // Establecer el índice del artículo a editar
-      console.log(this.item);
     },
     item_close: function () {
       this.page_list = true;

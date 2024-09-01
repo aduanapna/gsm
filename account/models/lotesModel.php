@@ -109,9 +109,9 @@ class lotesModel extends Model
         $params['deposito']             = $this->deposito;
         $params['judicializado']        = $this->judicializado;
         $params['operacion']            = $this->operacion;
-        $params['resolucion_nro']       = $this->resolucion_nro;
         $params['organismo_secuestro']  = $this->organismo_secuestro;
         $params['lote_observation']    = $this->lote_observation;
+        $params['resolucion_nro']       = $this->resolucion_nro;
         $params['lote_condition']      = $this->lote_condition;
         $params['lote_store']          = $this->lote_store;
 

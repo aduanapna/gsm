@@ -20,6 +20,7 @@ var vm = new Vue({
       leaked_lotes: [],
       lote_form: { lote_items: {} },
       lote_conditions: {},
+      lote_done: 1,
       form_cancel: [],
       positive_class: "",
     };
@@ -32,6 +33,9 @@ var vm = new Vue({
   },
   watch: {
     search_lotes: function () {
+      this.filter_lotes();
+    },
+    lote_done: function () {
       this.filter_lotes();
     },
     radio_lotes: function () {
@@ -73,34 +77,8 @@ var vm = new Vue({
     filter_lotes: function () {
       let array_list = this.lote_listed;
       let text = this.search_lotes.toLowerCase();
-      array_list = array_list.filter((item) => item.keywords.match(text));
+      array_list = array_list.filter((item) => item.keywords.match(text) && item.lote_condition == this.lote_done);
 
-      /*  switch (this.radio_lotes) {
-        case "pending":
-          array_list = array_list.filter((item) => item.lote_condition < 7);
-          break;
-        case "takeaway":
-          array_list = array_list.filter((item) => item.lote_delivery == 1);
-          break;
-        case "delivery":
-          array_list = array_list.filter((item) => item.lote_delivery == 2);
-          break;
-        case "resto":
-          array_list = array_list.filter((item) => item.lote_delivery == 3);
-          break;
-        case "pedidosya":
-          array_list = array_list.filter((item) => item.lote_delivery == 4);
-          break;
-        case "poked":
-          array_list = array_list.filter((item) => item.lote_delivery == 5);
-          break;
-        case "delivered":
-          array_list = array_list.filter((item) => item.lote_condition == 8);
-          break;
-        case "canceled":
-          array_list = array_list.filter((item) => item.lote_condition == 9);
-          break;
-      } */
       this.leaked_lotes = array_list;
       this.page_list = true;
     },

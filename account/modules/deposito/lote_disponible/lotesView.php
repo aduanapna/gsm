@@ -21,18 +21,18 @@
                         <div class="card">
                             <div class="card-header align-items-center p-2">
                                 <div class="row mt-1">
-                                    <div class="col-md-12">
-                                        <label class="small strong">Criterio de busqueda</label>
+                                    <div class="col-md-8">
+                                        <label class="small strong">Filtro de busqueda</label>
                                         <div class="search-box">
                                             <input v-model="search_lotes" type="text" placeholder="Ingrese cualquier parametro de busqueda" class="form-control search">
                                             <i class="ri-search-line search-icon"></i>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 mt-1 text-center">
-                                        <div v-for="(status, index) in radio_toolbar" :key="index" class="form-check form-check-inline">
-                                            <input v-model="radio_lotes" class="form-check-input" type="radio" :name="status.name" :id="status.name" :value="status.value">
-                                            <label class="form-check-label" :for="status.name">{{ status.text }}</label>
-                                        </div>
+                                    <div class="col-md-4">
+                                        <label class="small strong">Filtro de Estado</label>
+                                        <select v-model="lote_done" id="lote_done" class="form-control text-uppercase">
+                                            <option v-for="(condition, index) in lote_conditions" :value="condition.lote_condition_id">{{condition.lote_condition_name}}</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>

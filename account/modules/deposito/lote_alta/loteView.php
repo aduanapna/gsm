@@ -113,7 +113,7 @@
                                     </button>
                                 </div>
                                 <ul class="list-group list-group-flush overflow-auto" style="max-height: 400px;">
-                                    <li class="list-group-item p-1" v-for="(article,index) in lote_form.lote_items">
+                                    <li class="list-group-item p-1" v-for="(article,index) in item_forms">
                                         <div class="row g-1 mb-1">
                                             <div class="col-8">
                                                 <div class="d-flex align-items-center">
@@ -162,7 +162,7 @@
                             <div class="row">
                                 <div class="col-sm-auto">
                                     <div class="profile-user position-relative d-inline-block mx-auto mb-4">
-                                        <img :src="lote_item.picture" class="rounded-circle avatar-xl img-thumbnail user-profile-image" alt="user-profile-image">
+                                        <img :src="item_form.picture" class="rounded-circle avatar-xl img-thumbnail user-profile-image" alt="user-profile-image">
                                         <div class="avatar-xs p-0 rounded-circle profile-photo-edit">
                                             <input id="profile-img-file-input" type="file" class="profile-img-file-input" @change="profile_picture_upload()" ref="profile_picture">
                                             <label for="profile-img-file-input" class="profile-photo-edit avatar-xs">
@@ -177,7 +177,7 @@
                                     <div class="row">
                                         <div class="col-sm">
                                             <label for="rubro" class="form-label">Rubro</label>
-                                            <select v-model="lote_item.rubro" id="rubro" class="form-control">
+                                            <select v-model="item_form.rubro" id="rubro" class="form-control">
                                                 <option value="alimentos">Alimentos</option>
                                                 <option value="aparatos electricos/fotografia">Aparatos Electricos/Fotografia</option>
                                                 <option value="armas">Armas</option>
@@ -220,7 +220,7 @@
                                         </div>
                                         <div class="col-sm">
                                             <label class="form-label" for="posible_destino">Posible Destino</label>
-                                            <select v-model="lote_item.posible_destino" id="posible_destino" class="form-control">
+                                            <select v-model="item_form.posible_destino" id="posible_destino" class="form-control">
                                                 <option value="donacion">DONACION</option>
                                                 <option value="destruccion">DESTRUCCION</option>
                                                 <option value="restitucions">RESTITUCION</option>
@@ -230,7 +230,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <label class="form-label" for="descripcion">Descripcion</label>
-                                            <textarea v-model="lote_item.descripcion" id="descripcion" class="form-control" placeholder="" rows="2"></textarea>
+                                            <textarea v-model="item_form.descripcion" id="descripcion" class="form-control" placeholder="" rows="2"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -238,11 +238,11 @@
                             <div class="row">
                                 <div class="col-sm">
                                     <label class="form-label" for="cantidad">Cantidad</label>
-                                    <input v-model="lote_item.cantidad" id="cantidad" type="text" class="form-control">
+                                    <input v-model="item_form.cantidad" id="cantidad" type="text" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="u_medida">Medida</label>
-                                    <select v-model="lote_item.u_medida" id="u_medida" class="form-control">
+                                    <select v-model="item_form.u_medida" id="u_medida" class="form-control">
                                         <option value="unidad">UNIDAD</option>
                                         <option value="kg">KG</option>
                                         <option value="metro">METRO</option>
@@ -259,137 +259,137 @@
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="intervencion_inal">I.N.A.L</label>
-                                    <select v-model="lote_item.intervencion_inal" id="intervencion_inal" class="form-control">
+                                    <select v-model="item_form.intervencion_inal" id="intervencion_inal" class="form-control">
                                         <option value="NO">NO</option>
                                         <option value="SI">SI</option>
                                     </select>
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="intervencion_seguridad">Seg. Electrica</label>
-                                    <select v-model="lote_item.intervencion_seguridad" id="intervencion_seguridad" class="form-control">
+                                    <select v-model="item_form.intervencion_seguridad" id="intervencion_seguridad" class="form-control">
                                         <option value="NO">NO</option>
                                         <option value="SI">SI</option>
                                     </select>
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="intervencion_juguete">Juguetes</label>
-                                    <select v-model="lote_item.intervencion_juguete" id="intervencion_juguete" class="form-control">
+                                    <select v-model="item_form.intervencion_juguete" id="intervencion_juguete" class="form-control">
                                         <option value="NO">NO</option>
                                         <option value="SI">SI</option>
                                     </select>
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="m3_length">Largo en cm</label>
-                                    <input v-model="lote_item.m3_length" id="m3_length" type="number" class="form-control">
+                                    <input v-model="item_form.m3_length" id="m3_length" type="number" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="m3_width">Ancho en cm</label>
-                                    <input v-model="lote_item.m3_width" id="m3_width" type="number" class="form-control">
+                                    <input v-model="item_form.m3_width" id="m3_width" type="number" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="m3_height">Alto en cm</label>
-                                    <input v-model="lote_item.m3_height" id="m3_height" type="number" class="form-control">
+                                    <input v-model="item_form.m3_height" id="m3_height" type="number" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="m3_unit">m3 Unidad</label>
-                                    <input v-model="lote_item.m3_unit" id="m3_unit" type="number" class="form-control">
+                                    <input v-model="item_form.m3_unit" id="m3_unit" type="number" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="m3_total">m3 Total</label>
-                                    <input v-model="lote_item.m3_total" id="m3_total" type="number" class="form-control">
+                                    <input v-model="item_form.m3_total" id="m3_total" type="number" class="form-control">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
                                     <label class="form-label" for="aforo">Aforado</label>
-                                    <select v-model="lote_item.aforo" id="aforo" class="form-control">
+                                    <select v-model="item_form.aforo" id="aforo" class="form-control">
                                         <option value="NO">NO</option>
                                         <option value="SI">SI</option>
                                     </select>
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="unitario_usd">Unitario Dolar</label>
-                                    <input v-model="lote_item.unitario_usd" id="unitario_usd" type="number" class="form-control">
+                                    <input v-model="item_form.unitario_usd" id="unitario_usd" type="number" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="aforo">Fecha Aforo</label>
-                                    <input v-model="lote_item.aforo_fecha" id="aforo_fecha" type="date" class="form-control">
+                                    <input v-model="item_form.aforo_fecha" id="aforo_fecha" type="date" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="ncm">N.C.M</label>
-                                    <input v-model="lote_item.ncm" id="ncm" type="text" class="form-control">
+                                    <input v-model="item_form.ncm" id="ncm" type="text" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="aforo">Momento Imponible</label>
-                                    <input v-model="lote_item.momento_imponible" id="momento_imponible" type="date" class="form-control">
+                                    <input v-model="item_form.momento_imponible" id="momento_imponible" type="date" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="cotizacion_dolar">Dolar</label>
-                                    <input v-model="lote_item.cotizacion_dolar" id="cotizacion_dolar" type="number" class="form-control">
+                                    <input v-model="item_form.cotizacion_dolar" id="cotizacion_dolar" type="number" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="valor_aduana">Valor Aduana</label>
-                                    <input v-model="lote_item.valor_aduana" id="valor_aduana" type="number" class="form-control">
+                                    <input v-model="item_form.valor_aduana" id="valor_aduana" type="number" class="form-control">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
                                     <label class="form-label" for="derecho_impexp">Derechos</label>
-                                    <input v-model="lote_item.derecho_impexp" id="derecho_impexp" type="number" class="form-control">
+                                    <input v-model="item_form.derecho_impexp" id="derecho_impexp" type="number" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="tasa_estadistica">Tasa Estadistica</label>
-                                    <input v-model="lote_item.tasa_estadistica" id="tasa_estadistica" type="number" class="form-control">
+                                    <input v-model="item_form.tasa_estadistica" id="tasa_estadistica" type="number" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="impuesto_interno">Impuesto Interno</label>
-                                    <input v-model="lote_item.impuesto_interno" id="impuesto_interno" type="number" class="form-control">
+                                    <input v-model="item_form.impuesto_interno" id="impuesto_interno" type="number" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="iva_general">Iva General</label>
-                                    <input v-model="lote_item.iva_general" id="iva_general" type="number" class="form-control">
+                                    <input v-model="item_form.iva_general" id="iva_general" type="number" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="iva_adicional">Iva Adicional</label>
-                                    <input v-model="lote_item.iva_adicional" id="iva_adicional" type="number" class="form-control">
+                                    <input v-model="item_form.iva_adicional" id="iva_adicional" type="number" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="anticipo_ganancias">Anticipo Ganancias</label>
-                                    <input v-model="lote_item.anticipo_ganancias" id="anticipo_ganancias" type="number" class="form-control">
+                                    <input v-model="item_form.anticipo_ganancias" id="anticipo_ganancias" type="number" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="arancel_despachante">Arancel Despachante</label>
-                                    <input v-model="lote_item.arancel_despachante" id="arancel_despachante" type="number" class="form-control">
+                                    <input v-model="item_form.arancel_despachante" id="arancel_despachante" type="number" class="form-control">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm">
                                     <label class="form-label" for="pesos_iva">Pesos Iva</label>
-                                    <input v-model="lote_item.pesos_iva" id="pesos_iva" type="number" class="form-control">
+                                    <input v-model="item_form.pesos_iva" id="pesos_iva" type="number" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="pesos_adicional">Pesos Adicional</label>
-                                    <input v-model="lote_item.pesos_adicional" id="pesos_adicional" type="number" class="form-control">
+                                    <input v-model="item_form.pesos_adicional" id="pesos_adicional" type="number" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="pesos_estadistica">Pesos Estadistica</label>
-                                    <input v-model="lote_item.pesos_estadistica" id="pesos_estadistica" type="number" class="form-control">
+                                    <input v-model="item_form.pesos_estadistica" id="pesos_estadistica" type="number" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="pesos_impuestos">Pesos Impuestos</label>
-                                    <input v-model="lote_item.pesos_impuestos" id="pesos_impuestos" type="number" class="form-control">
+                                    <input v-model="item_form.pesos_impuestos" id="pesos_impuestos" type="number" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="pesos_ganancias">Pesos Ganancias</label>
-                                    <input v-model="lote_item.pesos_ganancias" id="pesos_ganancias" type="number" class="form-control">
+                                    <input v-model="item_form.pesos_ganancias" id="pesos_ganancias" type="number" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="pesos_derechos">Pesos Derechos</label>
-                                    <input v-model="lote_item.pesos_derechos" id="pesos_derechos" type="number" class="form-control">
+                                    <input v-model="item_form.pesos_derechos" id="pesos_derechos" type="number" class="form-control">
                                 </div>
                                 <div class="col-sm">
                                     <label class="form-label" for="valor_plaza">Valor Plaza</label>
-                                    <input v-model="lote_item.valor_plaza" id="valor_plaza" type="number" class="form-control">
+                                    <input v-model="item_form.valor_plaza" id="valor_plaza" type="number" class="form-control">
                                 </div>
                             </div>
                         </div>

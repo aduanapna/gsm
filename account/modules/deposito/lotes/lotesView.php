@@ -156,7 +156,8 @@
                                             <div class="col">
                                                 <p class="text-reset fs-14 mb-0 text-uppercase">{{item.descripcion}}</p>
                                             </div>
-                                            <div class="col-auto ms-auto text-danger text-uppercase">{{item.disposicion_nro}}</div>
+                                            <div v-if="item.gestionado == 'si'" class="col-auto ms-auto text-success text-uppercase">{{item.disposicion_nro}}</div>
+                                            <div v-if="item.gestionado != 'si'" class="col-auto ms-auto text-danger text-uppercase">{{item.disposicion_nro}}</div>
                                         </div>
                                         <div class="row g-1">
                                             <div class="col">

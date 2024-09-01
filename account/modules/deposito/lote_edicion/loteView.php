@@ -28,68 +28,73 @@
                     </div>
                 </div>
                 <div data-name="notificaciones" class="row"><?php echo Flasher::flash() ?></div>
-                <div data-name="listado" v-if="page_list" class="row mb-2">
-                    <div data-name="items" class="row">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row mb-1">
-                                    <p class="fw-bold text-primary mb-1">Mercaderia en LOTE</p>
-                                    <div class="input-group">
-                                        <input @keyup.enter="add_item()" ref="search_item" v-model="search_item" id="search_item" type="text" placeholder="Buscar categoria, nombre, descripcion, codigo" class="form-control search me-1">
-                                        <button @click="search_item = ''" type="button" class="btn btn-outline-primary btn-icon waves-effect waves-light me-1">
-                                            <i class="ri-delete-back-2-line"></i>
-                                        </button>
-                                        <button @click="new_item" type="button" class="btn btn-outline-success btn-icon waves-effect waves-light me-1">
-                                            <i class="ri-add-line"></i>
-                                        </button>
-                                    </div>
+
+                <div data-name="items" v-if="page_list" class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mb-1">
+                                <p class="fw-bold text-primary mb-1">Mercaderia en LOTE</p>
+                                <div class="input-group">
+                                    <input @keyup.enter="add_item()" ref="search_item" v-model="search_item" id="search_item" type="text" placeholder="Buscar categoria, nombre, descripcion, codigo" class="form-control search me-1">
+                                    <button @click="search_item = ''" type="button" class="btn btn-outline-primary btn-icon waves-effect waves-light me-1">
+                                        <i class="ri-delete-back-2-line"></i>
+                                    </button>
+                                    <button @click="new_item" type="button" class="btn btn-outline-success btn-icon waves-effect waves-light me-1">
+                                        <i class="ri-add-line"></i>
+                                    </button>
+                                    <select v-model="item_done" id="item_done" class="form-control">
+                                        <option value="all">TODOS</option>
+                                        <option value="si">NO</option>
+                                        <option value="no">SI</option>
+                                    </select>
                                 </div>
-                                <div class="row">
-                                    <ul class="list-group list-group-flush overflow-auto" style="max-height: 400px;">
-                                        <li class="list-group-item p-1" v-for="(item,index) in lote_leaked">
-                                            <div class="row g-1 mb-1">
-                                                <div class="col-8">
-                                                    <div class="d-flex align-items-center">
-                                                        <img :src="item.picture" alt="" class="rounded-circle avatar-sm me-2">
-                                                        <div>
-                                                            <p class="fw-bold mb-0 text-uppercase">{{item.descripcion}}</p>
-                                                            <p class="text-reset fs-14 mb-0 text-uppercase">{{item.cantidad}} x {{item.u_medida}} {{item.rubro}}</p>
-                                                        </div>
+                            </div>
+                            <div class="row">
+                                <ul class="list-group list-group-flush overflow-auto" style="min-height: 400px;">
+                                    <li class="list-group-item p-1" v-for="(item,index) in lote_leaked">
+                                        <div class="row g-1 mb-1">
+                                            <div class="col-8">
+                                                <div class="d-flex align-items-center">
+                                                    <img :src="item.picture" alt="" class="rounded-circle avatar-sm me-2">
+                                                    <div>
+                                                        <p class="fw-bold mb-0 text-uppercase">{{item.descripcion}}</p>
+                                                        <p class="text-reset fs-14 mb-0 text-uppercase">{{item.cantidad}} x {{item.u_medida}} {{item.rubro}}</p>
                                                     </div>
                                                 </div>
-                                                <div class="col">
-                                                    <span v-if="item.gestionado == 'si'" class="badge text-bg-success">Gestionado</span>
-                                                </div>
-                                                <div class="col">
-                                                    <p class="text-reset fs-14 mb-0">{{item.m3_total}}</p>
-                                                    <p class="text-muted mb-0">$ {{item.valor_plaza}}</p>
-                                                </div>
-                                                <div class="col">
-                                                    <p class="fw-bold mb-0 text-uppercase">{{item.disposicion_nro}}</p>
-                                                    <p class="text-reset fs-14 mb-0 text-uppercase">{{item.disposicion_tipo}}</p>
-                                                </div>
-                                                <div class="col-auto ms-auto">
-                                                    <button @click="item_recycle(item)" class="btn btn-icon text-dark">
-                                                        <i class="ri-recycle-line ri-xl"></i>
-                                                    </button>
-                                                    <button @click="item_edit(item,index)" class="btn btn-icon text-primary">
-                                                        <i class="ri-edit-line ri-xl"></i>
-                                                    </button>
-                                                    <button @click="item_delete(item,index)" class="btn btn-icon text-danger">
-                                                        <i class="ri-delete-bin-line ri-xl"></i>
-                                                    </button>
-                                                    <button @click="item_dispose(item,index)" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_disposicion" aria-controls="offcanvas_disposicion" class="btn btn-icon text-dark">
-                                                        <i class="ri-article-line ri-xl"></i>
-                                                    </button>
-                                                </div>
                                             </div>
-                                        </li>
-                                    </ul>
-                                </div>
+                                            <div class="col">
+                                                <span v-if="item.gestionado == 'si'" class="badge text-bg-success">Gestionado</span>
+                                            </div>
+                                            <div class="col">
+                                                <p class="text-reset fs-14 mb-0">{{item.m3_total}}</p>
+                                                <p class="text-muted mb-0">$ {{item.valor_plaza}}</p>
+                                            </div>
+                                            <div class="col">
+                                                <p class="fw-bold mb-0 text-uppercase">{{item.disposicion_nro}}</p>
+                                                <p class="text-reset fs-14 mb-0 text-uppercase">{{item.disposicion_tipo}}</p>
+                                            </div>
+                                            <div class="col-auto ms-auto">
+                                                <button @click="item_recycle(item)" class="btn btn-icon text-dark">
+                                                    <i class="ri-recycle-line ri-xl"></i>
+                                                </button>
+                                                <button @click="item_edit(item,index)" class="btn btn-icon text-primary">
+                                                    <i class="ri-edit-line ri-xl"></i>
+                                                </button>
+                                                <button @click="item_delete(item,index)" class="btn btn-icon text-danger">
+                                                    <i class="ri-delete-bin-line ri-xl"></i>
+                                                </button>
+                                                <button @click="item_dispose(item,index)" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_disposicion" aria-controls="offcanvas_disposicion" class="btn btn-icon text-dark">
+                                                    <i class="ri-article-line ri-xl"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div data-name="formulario" v-if="page_form" class="row mb-2">
                     <div class="card">
                         <div class="card-header p-2">
@@ -358,7 +363,7 @@
                         </div>
                         <div class="card-footer text-end">
                             <a @click="item_close" class="btn btn-link link-danger fw-medium"><i class="ri-close-line me-1 align-middle"></i> Volver</a>
-                            <button @click="add_item" type="button" class="btn btn-primary">Guardar</button>
+                            <button @click="save_item" type="button" class="btn btn-primary">Guardar</button>
                         </div>
                     </div>
                 </div>
@@ -435,7 +440,7 @@
                     </div>
                     <div class="offcanvas-footer border-top p-3 text-end">
                         <a data-bs-dismiss="offcanvas" class="btn btn-link link-danger fw-medium"><i class="ri-close-line me-1 align-middle"></i> Volver</a>
-                        <button @click="add_item" data-bs-dismiss="offcanvas" type="button" class="btn btn-primary">Guardar</button>
+                        <button @click="save_item" data-bs-dismiss="offcanvas" type="button" class="btn btn-primary">Guardar</button>
                     </div>
                 </div>
                 <!-- Footer -->
