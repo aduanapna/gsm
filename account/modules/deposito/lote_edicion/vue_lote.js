@@ -18,9 +18,10 @@ var vm = new Vue({
       lote_items: [],
       lote_deletes: [],
       lote_leaked: {},
-      lote_item: { picture: "" },
-      lote_edit: false, 
-      item_edition: false, 
+      item_form: { picture: "" },
+      item_index: -1,
+      lote_edit: false,
+      item_edition: false,
       item_done: "all",
       btn_save: true,
     };
@@ -99,15 +100,21 @@ var vm = new Vue({
     },
     lote_clean: function () {
       this.lote_number = "";
-      this.lote_items = {};
-      this.lote_item = { picture: "" };
+      this.lote_items = [];
+      this.item_form = { picture: "" };
       this.lote_edit = false;
       this.page_list = false;
       this.page_form = false;
     },
     lote_save: function () {
       this.btn_save = false;
+      function check_items() {
+        if (vm.lote_items.length === 0) {
+          throw new toastr("Debe seleccionar articulos", "bg-danger");
+        }
+      }
       try {
+        check_items();
         url = `${this.url}_lotes/item_update`;
 
         let data = new FormData();
@@ -148,47 +155,50 @@ var vm = new Vue({
     },
 
     new_item: function () {
-      this.lote_item.lote_item_id = 0;
-      this.lote_item.lote_item_bound = this.lote_id;
-      this.lote_item.picture = this.urlimages + "_nodisponible.jpg";
-      this.lote_item.rubro = "alimentos";
-      this.lote_item.u_medida = "UNIDAD";
-      this.lote_item.intervencion_inal = "NO";
-      this.lote_item.intervencion_seguridad = "NO";
-      this.lote_item.intervencion_juguete = "NO";
-      this.lote_item.keywords = "";
+      this.item_form.item_form_id = 0;
+      this.item_form.item_form_bound = this.lote_id;
+      this.item_form.picture = this.urlimages + "_nodisponible.jpg";
+      this.item_form.rubro = "alimentos";
+      this.item_form.u_medida = "UNIDAD";
+      this.item_form.intervencion_inal = "NO";
+      this.item_form.intervencion_seguridad = "NO";
+      this.item_form.intervencion_juguete = "NO";
+      this.item_form.keywords = "";
       this.page_form = true;
     },
     save_item: function () {
       if (!this.item_edition) {
-        this.lote_items.push(this.lote_item);
+        this.lote_items.push(this.item_form);
         toastr("Artículo agregado", "bg-secondary");
-        console.log("Artículo agregado");
       } else {
-        //this.$set(this.lote_items, this.item_index, this.lote_item);
-        toastr("Artículo actualizado", "bg-success");
-        this.item_edition = false
-        console.log("Artículo actualizado");
+        this.$set(this.lote_items, this.item_index, this.item_form);
+        toastr("Artículo actualizado", "bg-secondary");
+        this.item_edition = false;
       }
       this.filter_items();
-      this.lote_item = { picture: "" };
+      this.item_form = { picture: "" };
+      this.item_index = -1;
       this.page_list = true;
     },
-    item_edit: function (item) {
+    item_edit: function (item, index) {
       this.item_edition = true;
-      this.lote_item = item;
+      let itemX = Object.assign({}, item);
+      this.item_form = itemX;
+      this.item_index = index;
       this.page_form = true;
+    },
+    item_disponse: function (item, index) {
+      this.item_edition = true;
+      let itemX = Object.assign({}, item);
+      this.item_form = itemX;
+      this.item_index = index;
     },
     item_recycle: function (item) {
       this.item_edition = false;
       let recycle = Object.assign({}, item);
-      this.lote_item = recycle;
-      this.lote_item.lote_item_id = 0;
-      this.page_form = true; 
-    },
-    item_dispose: function (item, index) {
-      this.item_edition = true;
-      this.lote_item = item;
+      this.item_form = recycle;
+      this.item_form.item_form_id = 0;
+      this.page_form = true;
     },
     item_delete: function (item, index) {
       Swal.fire({
@@ -201,7 +211,7 @@ var vm = new Vue({
         cancelButtonText: "Cancelar",
       }).then((result) => {
         if (result.isConfirmed) {
-          if (item.lote_item_id) {
+          if (item.item_form_id) {
             this.lote_deletes.push(item);
           }
           this.lote_items.splice(index, 1);

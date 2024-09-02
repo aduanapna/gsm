@@ -16,9 +16,9 @@ var vm = new Vue({
       search_article: "",
 
       lote_form: {},
-      lote_items: {},
       item_form: { picture: "" },
-      item_edition: false, 
+      item_edition: false,
+      item_index: -1,
       btn_save: true,
     };
   },
@@ -106,9 +106,10 @@ var vm = new Vue({
     lote_new: function () {
       /* Eliminamos los datos del sessionStorage */
       sessionStorage.removeItem("lote_form");
+      sessionStorage.removeItem("lote_items");
       /* Eliminamos los datos de la variables */
       this.lote_form = [];
-
+      this.lote_items = [];
       const url = `${this.url}_lotes/lote_new`;
       let data = new FormData();
       data.append("csrf", getMeta("csrf"));
@@ -123,7 +124,7 @@ var vm = new Vue({
                 toastr(res.msg, "bg-info");
                 this.lote_form = res.data;
                 this.item_form = { picture: "" };
-                thisediting_index = -1;
+                this.item_index = -1;
               }
               break;
             default:
@@ -138,7 +139,7 @@ var vm = new Vue({
     lote_save: function () {
       this.btn_save = false;
       function check_items() {
-        if (vm.lote_form.lote_items.length === 0) {
+        if (vm.lote_items.length === 0) {
           throw new toastr("Debe seleccionar articulos", "bg-danger");
         }
       }
@@ -150,7 +151,6 @@ var vm = new Vue({
         data.append("csrf", getMeta("csrf"));
         data.append("lote_form", JSON.stringify(this.lote_form));
         data.append("lote_items", JSON.stringify(this.lote_items));
-
         axios
           .post(url, data)
           .then((response) => {
@@ -181,7 +181,7 @@ var vm = new Vue({
       let array_list = this.page_options.foods;
       let text = this.search_article.toLowerCase();
 
-      array_list = array_list.filter((item) => item.food_metadata.match(text));
+      array_list = array_list.filter((item) => item.descripcion.match(text));
       this.page_articles = array_list;
     },
 
@@ -194,24 +194,24 @@ var vm = new Vue({
       this.item_form.intervencion_juguete = "no";
       this.page_form = true;
     },
-    add_item: function () {
+    save_item: function () {
       if (!this.item_edition) {
-        // Si no se está editando, agregar un nuevo artículo
         this.lote_items.push(this.item_form);
         toastr("Artículo agregado", "bg-secondary");
       } else {
-        // Si se está editando, actualizar el artículo existente
-        //this.$set(this.lote_form.lote_items, this.editing_index, this.item_form);
+        this.$set(this.lote_items, this.item_index, this.item_form);
         toastr("Artículo actualizado", "bg-secondary");
-        this.item_edition = false; // Resetear el índice de edición
+        this.item_edition = false;
       }
       this.set_session();
       this.item_form = { picture: "" };
       this.page_list = true;
     },
     item_edit: function (item, index) {
-      this.editing_index = true;
-      this.item_form = item;
+      this.item_edition = true;
+      let itemX = Object.assign({}, item);
+      this.item_form = itemX;
+      this.item_index = index;
       this.page_form = true;
     },
     item_recycle: function (item) {

@@ -145,7 +145,8 @@ var vm = new Vue({
       });
     },
     lote_view: function (lote) {
-      this.lote_form = lote;
+      let itemX = Object.assign({}, lote);
+      this.lote_form = itemX;
     },
   },
 });

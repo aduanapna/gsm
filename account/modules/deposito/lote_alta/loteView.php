@@ -35,8 +35,8 @@
                                         <div class="mb-1">
                                             <label for="deposito" class="form-label">Deposito</label>
                                             <select v-model="lote_form.deposito" id="deposito" class="form-control">
-                                                <option value="ADUANA">ADUANA</option>
-                                                <option value="FUERZAS_SEGURIDAD">FUERZAS_SEGURIDAD</option>
+                                                <option value="aduana">ADUANA</option>
+                                                <option value="fuerzas_seguridad">FUERZAS_SEGURIDAD</option>
                                             </select>
                                         </div>
                                     </div>
@@ -44,8 +44,8 @@
                                         <div class="mb-1">
                                             <label for="judicializado" class="form-label">Judicializado</label>
                                             <select v-model="lote_form.judicializado" id="judicializado" class="form-control">
-                                                <option value="NO">NO</option>
-                                                <option value="SI">SI</option>
+                                                <option value="no">NO</option>
+                                                <option value="si">SI</option>
                                             </select>
                                         </div>
                                     </div>
@@ -53,10 +53,10 @@
                                         <div class="mb-1">
                                             <label for="organismo_secuestro" class="form-label">Organismo Secuestro</label>
                                             <select v-model="lote_form.organismo_secuestro" id="organismo_secuestro" class="form-control">
-                                                <option value="DGA">DGA</option>
-                                                <option value="GENDARMERIA">GENDARMERIA</option>
-                                                <option value="PFA">PFA</option>
-                                                <option value="POLICIA PROVINCIAL">POLICIA PROVINCIAL</option>
+                                                <option value="dga">DGA</option>
+                                                <option value="gendarmeria">GENDARMERIA</option>
+                                                <option value="pfa">PFA</option>
+                                                <option value="policia provincial">POLICIA PROVINCIAL</option>
                                             </select>
                                         </div>
                                     </div>
@@ -101,8 +101,8 @@
                             <div class="card-body">
                                 <p class="fw-bold text-primary mb-1">Mercaderia en LOTE</p>
                                 <div class="input-group">
-                                    <input @keyup.enter="add_item()" ref="search_article" v-model="search_article" id="search_article" type="text" placeholder="Buscar categoria, nombre, descripcion, codigo" class="form-control search me-1">
-                                    <button @click="add_item()" type="button" class="btn btn-outline-primary btn-icon waves-effect waves-light me-1">
+                                    <input ref="search_article" v-model="search_article" id="search_article" type="text" placeholder="Buscar categoria, nombre, descripcion, codigo" class="form-control search me-1">
+                                    <button type="button" class="btn btn-outline-primary btn-icon waves-effect waves-light me-1">
                                         <i class="ri-search-2-line"></i>
                                     </button>
                                     <button @click="search_article = ''" type="button" class="btn btn-outline-primary btn-icon waves-effect waves-light me-1">
@@ -113,26 +113,26 @@
                                     </button>
                                 </div>
                                 <ul class="list-group list-group-flush overflow-auto" style="max-height: 400px;">
-                                    <li class="list-group-item p-1" v-for="(article,index) in item_forms">
+                                    <li class="list-group-item p-1" v-for="(item,index) in lote_items">
                                         <div class="row g-1 mb-1">
                                             <div class="col-8">
                                                 <div class="d-flex align-items-center">
-                                                    <img :src="article.picture" alt="" class="rounded-circle avatar-sm me-2">
+                                                    <img :src="item.picture" alt="" class="rounded-circle avatar-sm me-2">
                                                     <div>
-                                                        <p class="fw-bold mb-0 text-uppercase">{{article.descripcion}}</p>
-                                                        <p class="text-reset fs-14 mb-0">{{article.cantidad}} x {{article.u_medida}} {{article.rubro}}</p>
+                                                        <p class="fw-bold mb-0 text-uppercase">{{item.descripcion}}</p>
+                                                        <p class="text-reset fs-14 mb-0">{{item.cantidad}} x {{item.u_medida}} {{item.rubro}}</p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <p class="text-reset fs-14 mb-0">{{article.m3_total}}</p>
-                                                <p class="text-muted mb-0">{{article.valor_plaza}}</p>
+                                                <p class="text-reset fs-14 mb-0">{{item.m3_total}}</p>
+                                                <p class="text-muted mb-0">{{item.valor_plaza}}</p>
                                             </div>
                                             <div class="col-auto ms-auto">
-                                                <button @click="item_recycle(article)" class="btn btn-icon text-dark">
+                                                <button @click="item_recycle(item)" class="btn btn-icon text-dark">
                                                     <i class="ri-recycle-line ri-xl"></i>
                                                 </button>
-                                                <button @click="item_edit(article)" class="btn btn-icon text-primary">
+                                                <button @click="item_edit(item,index)" class="btn btn-icon text-primary">
                                                     <i class="ri-edit-line ri-xl"></i>
                                                 </button>
                                                 <button @click="item_delete(index)" class="btn btn-icon text-danger">
@@ -395,7 +395,7 @@
                         </div>
                         <div class="card-footer text-end">
                             <a @click="item_close" class="btn btn-link link-danger fw-medium"><i class="ri-close-line me-1 align-middle"></i> Volver</a>
-                            <button @click="add_item" type="button" class="btn btn-primary">Guardar</button>
+                            <button @click="save_item" type="button" class="btn btn-primary">Guardar</button>
                         </div>
                     </div>
                 </div>

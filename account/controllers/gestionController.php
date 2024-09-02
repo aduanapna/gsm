@@ -512,6 +512,7 @@ class gestionController extends Controller
         return null;
     }
 
+    /* 
     public function importar_gsm()
     {
         check_csrf();
@@ -677,5 +678,6 @@ class gestionController extends Controller
         } else {
             echo "Error al abrir el archivo CSV.";
         }
-    }
+    } 
+    */
 }

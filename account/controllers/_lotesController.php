@@ -35,14 +35,13 @@ class _lotesController extends Controller
         $lote_data['nro_sumario']           = '';
         $lote_data['nro_alot']              = '';
         $lote_data['nro_sigea']             = '';
-        $lote_data['deposito']              = 'ADUANA';
-        $lote_data['judicializado']         = 'NO';
-        $lote_data['operacion']             = 'IMPORTACION';
-        $lote_data['organismo_secuestro']   = 'DGA';
+        $lote_data['deposito']              = 'aduana';
+        $lote_data['judicializado']         = 'no';
+        $lote_data['operacion']             = 'importacion';
+        $lote_data['organismo_secuestro']   = 'dga';
         $lote_data['lote_observation']      = '';
         $lote_data['lote_condition']        = 1;
         $lote_data['lote_store']            = self::$user->store_id;
-        $lote_data['lote_items']            = [];
 
         try {
             json_response(200, $lote_data, 'Orden por defecto');
@@ -54,7 +53,7 @@ class _lotesController extends Controller
     function lote_add()
     {
         $lote_form                                  = check_form('lote_form');
-        $lote_items                                 = $lote_form['lote_items'];
+        $lote_items                                 = check_form('lote_items');
         # Seteamos variables que usaremos mas de una vez
         $lote                                       = new lotesModel;
         $lote->fecha_ingreso                        = get_form($lote_form, 'fecha_ingreso', ['date']);

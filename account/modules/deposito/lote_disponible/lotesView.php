@@ -31,7 +31,7 @@
                                     <div class="col-md-4">
                                         <label class="small strong">Filtro de Estado</label>
                                         <select v-model="lote_done" id="lote_done" class="form-control text-uppercase">
-                                            <option v-for="(condition, index) in lote_conditions" :value="condition.lote_condition_id">{{condition.lote_condition_name}}</option>
+                                            <option v-for="(condition, index) in lote_conditions" v-if="condition.lote_condition_id != 8" :value="condition.lote_condition_id">{{condition.lote_condition_name}}</option>
                                         </select>
                                     </div>
                                 </div>
